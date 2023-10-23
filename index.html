@@ -40,7 +40,7 @@
                   <a class="nav-link disabled" href="#">Disabled</a>
                 </li>
               </ul>
-              <form class="form-inline my-2 my-lg-0 d-flex justify-content-sm-between">
+              <form class="form-inline my-2 my-lg-0 d-flex">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
               </form>
@@ -54,8 +54,13 @@
         <h1 class="text-center">Hey Brew</h1>
             <h2 class="text-center">Log your beer diary entries and get better every time you brew</h2>
                 <form action="submit" class="text-center">
-                    <label for="recipeItem">Add recipe</label>
-                         <input type="text">
+                    <div class="form-group form-control">
+                        <label for="ingredient">Add ingredient</label>
+                        <input type="text" class="formcontrol" id="ingredient">
+                    </div>
+                    <div class="form-control">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </form>
     </div>
 </header>
