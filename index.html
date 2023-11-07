@@ -31,22 +31,20 @@
     
 <header>
     <div class="container mt-5">
-        
         <h1 class="text-center">Hey Brew</h1>
             <h2 class="text-center">Log your beer diary entries and get better every time you brew</h2>
             <div class="form-group">
                 <form id="form" action="submit" class="text-center">
                     <div>
                         <label for="ingredients">Add ingredient</label>
-                        <input type="text" class="formcontrol" id="input">
+                        <input name ="ingredients" type="text" class="formcontrol" id="input">
                         <div id="msg"></div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary text-center mt-5">Submit</button>
+                        </div>
                     </div>
                 </form>
             </div>  
-    </div>
-
-    <div class="text-center">
-        <button type="submit" class="btn btn-primary text-center mt-5">Submit</button>
     </div>
 
     <div class="text-center mt-5">
@@ -79,6 +77,35 @@
     
 </body>
 
-<script src="/app.js"></script>
+<script src="/app.js">
+
+//declaring variables from my html page
+
+let form = document.getElementById("form");
+let input = document.getElementById("input");
+let msg = document.getElementById("msg");
+let ingredients = document.getElementById("ingredients");
+
+// build an event listener to prevent the default behaviour
+//also create a variable a function name formValidation
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log("button clicked");
+  
+    formValidation();
+  });
+  
+  let formValidation = () => {
+    if (input.value === "") {
+      msg.innerHTML = "Post cannot be blank";
+      console.log("failure");
+    } else {
+      console.log("successs");
+      msg.innerHTML = "";
+    }
+  };
+    
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </html>
