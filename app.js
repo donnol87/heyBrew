@@ -1,5 +1,6 @@
 let form = document.getElementById("form");
 let textInput = document.getElementById("textInput");
+let hopsInput = document.getElementById("hopsInput");
 let textarea = document.getElementById("textarea");
 let msg = document.getElementById("msg");
 let tasks = document.getElementById("tasks");
@@ -36,6 +37,7 @@ let data = [];
 let acceptData = () => {
   data.push({
     text: textInput.value,
+    hops: hopsInput.value,
     description: textarea.value,
   });
 
@@ -53,6 +55,7 @@ let createTasks = () => {
     return (tasks.innerHTML += `
     <div id=${y}>
           <span class="fw-bold">${x.text}</span>
+          <span class="fw-bold">${x.hops}</span>
           <p>${x.description}</p>
   
           <span class="options">
@@ -68,6 +71,7 @@ let createTasks = () => {
 
 let resetForm = () => {
   textInput.value = "";
+  hopsInput.value ="";
   textarea.value = "";
 };
 
@@ -89,7 +93,8 @@ let editTask = (e) => {
   let selectedTask = e.parentElement.parentElement;
 
   textInput.value = selectedTask.children[0].innerHTML;
-  textarea.value = selectedTask.children[1].innerHTML;
+  hopsInput.value = selectedTask.children[1].innerHTML;
+  textarea.value = selectedTask.children[2].innerHTML;
 
   deleteTask(e);
 };
