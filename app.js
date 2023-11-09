@@ -1,50 +1,102 @@
-//declaring variables from my html page
-
 let form = document.getElementById("form");
-let input = document.getElementById("input");
+let textInput = document.getElementById("textInput");
+let textarea = document.getElementById("textarea");
 let msg = document.getElementById("msg");
-let ingredients = document.getElementById("ingredients");
+let tasks = document.getElementById("tasks");
+let add = document.getElementById("add");
 
-let data = {};
-
-// build an event listener to prevent the default behaviour
-//also create a variable a function name formValidation
+//validate user input fields
 
 form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    console.log("button clicked");
-  
-    formValidation();
-  });
-  
-  let formValidation = () => {
-    if (input.value === "") {
-      msg.innerHTML = "Post cannot be blank";
-      console.log("failure");
-    } else {
-      console.log("successs");
-      msg.innerHTML = "";
-      acceptData();
-    }
-  };
+  e.preventDefault();
+  formValidation();
+});
 
-// here we area accepting data from input fields and we added the acceptData() function to the above function
-let acceptData = () => {
-    data["text"] = input.value;
-    console.log(data);
-    createPost();
+let formValidation = () => {
+  if (textInput.value === "") {
+    console.log("failure");
+    msg.innerHTML = "Task cannot be blank";
+  } else {
+    console.log("success");
+    msg.innerHTML = "";
+    acceptData();
+    add.setAttribute("data-bs-dismiss", "modal");
+    add.click();
+
+    (() => {
+      add.setAttribute("data-bs-dismiss", "");
+    })();
+  }
 };
 
-// new function for creating template literals
+//collect data and use local storage
 
-let createPost = () => {
-    ingredients.innerHTML += `
-    <div>
-    <p>${data.text}</p>
-    <span class="options">
-      <i onClick="editPost(this)" class="fas fa-edit"></i>
-      <i onClick="deletePost(this)" class="fas fa-trash-alt"></i>
-    </span>
-  </div>`;
-  input.value = "";
-  };
+let data = [];
+
+let acceptData = () => {
+  data.push({
+    text: textInput.value,
+    description: textarea.value,
+  });
+
+  localStorage.setItem("data", JSON.stringify(data));
+
+  console.log(data);
+  createTasks();
+};
+
+// create new tasks using template literals
+
+let createTasks = () => {
+  tasks.innerHTML = "";
+  data.map((x, y) => {
+    return (tasks.innerHTML += `
+    <div id=${y}>
+          <span class="fw-bold">${x.text}</span>
+          <p>${x.description}</p>
+  
+          <span class="options">
+            <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit"></i>
+            <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt"></i>
+          </span>
+        </div>
+    `);
+  });
+
+  resetForm();
+};
+
+let resetForm = () => {
+  textInput.value = "";
+  textarea.value = "";
+};
+
+// function to delete all 3 items from task array (HTML element, targeted task, & update local storage)
+
+let deleteTask = (e) => {
+  e.parentElement.parentElement.remove();
+
+  data.splice(e.parentElement.parentElement.id, 1);
+
+  localStorage.setItem("data", JSON.stringify(data));
+
+  console.log(data);
+};
+
+// edit all 3 values (task, date, description inside of the array)
+
+let editTask = (e) => {
+  let selectedTask = e.parentElement.parentElement;
+
+  textInput.value = selectedTask.children[0].innerHTML;
+  textarea.value = selectedTask.children[1].innerHTML;
+
+  deleteTask(e);
+};
+
+//how to get data from local storage, even after it's deleted
+(() => {
+  data = JSON.parse(localStorage.getItem("data")) || [];
+  console.log(data);
+  createTasks();
+})();
