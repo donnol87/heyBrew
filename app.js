@@ -1,10 +1,12 @@
 let form = document.getElementById("form");
 let textInput = document.getElementById("textInput");
+let beerName = document.getElementById("beerName")
 let hopsInput = document.getElementById("hopsInput");
 let textarea = document.getElementById("textarea");
 let msg = document.getElementById("msg");
 let tasks = document.getElementById("tasks");
 let add = document.getElementById("add");
+let close = document.getElementById("close")
 
 //validate user input fields
 
@@ -38,6 +40,7 @@ let acceptData = () => {
   data.push({
     text: textInput.value,
     hops: hopsInput.value,
+    name: beerName.value,
     description: textarea.value,
   });
 
@@ -54,8 +57,9 @@ let createTasks = () => {
   data.map((x, y) => {
     return (tasks.innerHTML += `
     <div id=${y}>
-          <span class="fw-bold">${x.text}</span>
-          <span class="fw-bold">${x.hops}</span>
+          <span class="fw-bold">${x.name}</span>
+          <span class="fw">${x.text}</span>
+          <span class="fw">${x.hops}</span>
           <p>${x.description}</p>
   
           <span class="options">
@@ -70,6 +74,7 @@ let createTasks = () => {
 };
 
 let resetForm = () => {
+  beerName.value = "";
   textInput.value = "";
   hopsInput.value ="";
   textarea.value = "";
@@ -92,9 +97,10 @@ let deleteTask = (e) => {
 let editTask = (e) => {
   let selectedTask = e.parentElement.parentElement;
 
-  textInput.value = selectedTask.children[0].innerHTML;
-  hopsInput.value = selectedTask.children[1].innerHTML;
-  textarea.value = selectedTask.children[2].innerHTML;
+  beerName.value = selectedTask.children[0].innerHTML;
+  textInput.value = selectedTask.children[1].innerHTML;
+  hopsInput.value = selectedTask.children[2].innerHTML;
+  textarea.value = selectedTask.children[3].innerHTML;
 
   deleteTask(e);
 };

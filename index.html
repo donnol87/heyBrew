@@ -58,7 +58,7 @@ aria-hidden="true"
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Add New Ingredient</h5>
+      <h5 class="modal-title" id="exampleModalLabel">Add Beer Recipe</h5>
       <button
         type="button"
         class="btn-close"
@@ -67,8 +67,12 @@ aria-hidden="true"
       ></button>
     </div>
     <div class="modal-body">
+      <p><strong>Beer Name</strong></p>
+      <input type="text" class="form-control" name="" id="beerName" />
+      <br />
       <p>Malt</p>
       <input type="text" class="form-control" name="" id="textInput" />
+      <br />
       <p>Hops</p>
       <input type="text" class="form-control" name="" id="hopsInput" />
       <div id="msg"></div>
@@ -83,7 +87,7 @@ aria-hidden="true"
       ></textarea>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+      <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">
         Close
       </button>
       <button type="submit" id="add" class="btn btn-primary">Add</button>
